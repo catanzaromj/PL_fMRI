@@ -1,1 +1,1 @@
-from src.modality_labels import target_labels
+from src.config import target_labels, total_time

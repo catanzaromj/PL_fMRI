@@ -1,4 +1,9 @@
-"""The target labels for classification."""
+"""Constants used in the calculations.
+
+target_labels: The true labelling of time slices, used for classification.
+
+total_time: Number of time slices in the acquisition.
+"""
 
 
 target_labels = (
@@ -20,3 +25,5 @@ target_labels = (
     + ["beat"] * 15
     + ["rest"] * 7
 )
+
+total_time = len(target_labels)
