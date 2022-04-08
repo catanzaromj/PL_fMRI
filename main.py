@@ -60,7 +60,9 @@ p_val0 = permutation_test(pl_list[0], PERM_TEST_LABELS)
 p_val1 = permutation_test(pl_list[1], PERM_TEST_LABELS)
 
 
-## SVM
+# SVM
+# Any of the classifiers below can be uncommented.
+
 # Build a classifier using H0
 svm_random_rest_0, score_random_rest_0 = landscape_svm(
     landscapes=pl_list[0],
@@ -94,30 +96,30 @@ svm_random_rest_01, score_random_rest_01 = landscape_svm(
 )
 
 # Build a classifier by truncating each of H0 and H1 first
-truncated_pl0 = [
-    PersLandscapeApprox(
-        start=pl_list[0][i].start,
-        stop=pl_list[0][i].stop,
-        num_steps=pl_list[0][i].num_steps,
-        hom_deg=pl_list[0][i].hom_deg,
-        values=pl_list[0][i][:5],
-    )
-    for i in range(len(pl_list[0]))
-]
-truncated_pl1 = [
-    PersLandscapeApprox(
-        start=pl_list[1][i].start,
-        stop=pl_list[1][i].stop,
-        num_steps=pl_list[1][i].num_steps,
-        hom_deg=pl_list[1][i].hom_deg,
-        values=pl_list[1][i][:5],
-    )
-    for i in range(len(pl_list[1]))
-]
-svm_random_rest_trunc_01, score_random_rest_trunc_01 = landscape_svm(
-    landscapes=truncated_pl0 + truncated_pl1,
-    labels=SVM_TEST_LABELS,
-    target_labels=target_labels * 2,
-    folds=10,
-    C=100,
-)
+# truncated_pl0 = [
+#     PersLandscapeApprox(
+#         start=pl_list[0][i].start,
+#         stop=pl_list[0][i].stop,
+#         num_steps=pl_list[0][i].num_steps,
+#         hom_deg=pl_list[0][i].hom_deg,
+#         values=pl_list[0][i][:5],
+#     )
+#     for i in range(len(pl_list[0]))
+# ]
+# truncated_pl1 = [
+#     PersLandscapeApprox(
+#         start=pl_list[1][i].start,
+#         stop=pl_list[1][i].stop,
+#         num_steps=pl_list[1][i].num_steps,
+#         hom_deg=pl_list[1][i].hom_deg,
+#         values=pl_list[1][i][:5],
+#     )
+#     for i in range(len(pl_list[1]))
+# ]
+# svm_random_rest_trunc_01, score_random_rest_trunc_01 = landscape_svm(
+#     landscapes=truncated_pl0 + truncated_pl1,
+#     labels=SVM_TEST_LABELS,
+#     target_labels=target_labels * 2,
+#     folds=10,
+#     C=100,
+# )

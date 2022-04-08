@@ -81,7 +81,7 @@ def construct_landscapes(subject: str, hom_deg: int, data_dir: str) -> list:
             subject=subject, hom_deg=hom_deg, time=time, data_dir=data_dir
         )
         pl_list.append(
-            PersLandscapeApprox(dgms=diagrams, hom_deg=hom_deg, num_steps=1500)
+            PersLandscapeApprox(dgms=diagrams, hom_deg=hom_deg, num_steps=1800)
         )
     return pl_list
 
