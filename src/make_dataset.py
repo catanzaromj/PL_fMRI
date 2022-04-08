@@ -2,6 +2,7 @@
 
 The raw matlab files contain signal amplitudes for the entire acquisition, not
 just the ACC. The mask filters these other regions out, leaving the ACC.
+
 """
 
 import numpy as np
@@ -10,12 +11,13 @@ import os
 import gudhi
 
 
-# TODO Fix this file.
-
-
 def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool):
     """
     Apply the mask to the subject and convert to a perseus input file.
+
+    This method reads from the 'raw' subdirectory of `data_dir` and writes
+    to the 'preprocessed' subdirectory of `data_dir`. It does not return
+    anything.
 
     This method should not be called directly; use `construct_dataset` to
     avoid reloading the (potentially large) mask.
@@ -44,7 +46,9 @@ def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool):
     subject_data = np.array(h5.File(subject_data_path, "r"))
     max_fmri = int(np.round(np.amax(subject_data)))
 
-    for time in range(210):
+    from src import total_time
+
+    for time in range(total_time):
         prs_filename = "patient_" + subject + "_time_" + str(time) + ".prs"
         prs_file = open(
             os.path.join(data_dir, "preprocessed", subject, prs_filename), "w"
@@ -66,7 +70,7 @@ def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool):
         prs_file.close()
 
 
-def construct_dataset(subjects: str, data_dir: str, supra: bool):
+def construct_perseus_input_files(subjects: str, data_dir: str, supra: bool):
     """
     Load the mask and apply it to each subject.
 
@@ -106,13 +110,20 @@ def construct_diagrams_gudhi(subject: str, hom_deg: int, time: int, data_dir: st
     Parameters
     ----------
     subjects : str
-        DESCRIPTION.
-    hom_deg : TYPE
-        DESCRIPTION.
+        A subject number to be analyzed.
+
+    hom_deg : int
+        The homological degree used to compute persistence.
+
+    time : int
+        The time slice to analyze.
+
+    data_dir : str
+        The path to the data directory.
 
     Returns
     -------
-    None.
+    A numpy.ndarray consisting of birth-death pairs.
 
     """
     prs_filename = "patient_" + subject + "_time_" + str(time) + ".prs"
@@ -121,3 +132,47 @@ def construct_diagrams_gudhi(subject: str, hom_deg: int, time: int, data_dir: st
     )
     cubical_complex.compute_persistence(homology_coeff_field=2)
     return cubical_complex.persistence_intervals_in_dimension(hom_deg)
+
+
+def construct_persistence_files(subject: str, hom_deg: int, data_dir: str):
+    """
+    Construct persistence diagram output files using gudhi directly.
+
+    This method writes to the 'preprocessed' subdirectory of `data_dir`.
+    It does not return anything.
+
+    Parameters
+    ----------
+    subject : str
+        A subject number to be analyzed.
+
+    hom_deg : int
+        The homological degree used to compute persistence.
+
+    data_dir : str
+        The path to the data directory.
+
+    Returns
+    -------
+    None.
+
+    """
+    post_processing_dir = os.path.join(data_dir, "postprocessed", subject)
+    from src import total_time
+
+    for time in range(total_time):
+        pd_filename = (
+            "patient_"
+            + subject
+            + "_time_"
+            + str(time)
+            + "_output_"
+            + str(hom_deg)
+            + ".txt"
+        )
+        with open(os.path.join(post_processing_dir, pd_filename), "w") as pd_file:
+            pds = construct_diagrams_gudhi(
+                subject=subject, hom_deg=hom_deg, time=time, data_dir=data_dir
+            )
+            for (b, d) in pds:
+                pd_file.writelines([str(b), str(d), "\n"])

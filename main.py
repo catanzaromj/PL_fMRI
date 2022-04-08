@@ -17,10 +17,7 @@ The main steps are as follows.
     and validate it using 10-fold cross validation.
 
 """
-from sklearn.model_selection import cross_val_score
-from sklearn.preprocessing import LabelBinarizer
 from persim.landscapes import PersLandscapeApprox
-import numpy as np
 
 from src.landscapes import (
     pad_flatten_landscape_values,
@@ -39,8 +36,13 @@ HOMOLOGICAL_DEGREES = [0, 1]
 PERM_TEST_LABELS = ["rest", "beat"]
 SVM_TEST_LABELS = ["rest", "beat"]
 
-# from src.make_dataset import construct_dataset
-# construct_dataset(SUBJECT_LIST, supra=SUPRA_LEVEL)
+### For the code review: The raw matlab files are very large, so I haven't
+### include them in this repository. If they were included,
+### the following three lines would
+### compute the perseus input files from them and use gudhi/perseus to compute
+### the persistence.
+# from src.make_dataset import construct_perseus_input_files
+# construct_perseus_input_files(SUBJECT_LIST, supra=SUPRA_LEVEL)
 # run perseus on those files
 
 pl_list = []
