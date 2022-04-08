@@ -23,7 +23,7 @@ The main workflow of the code is as follows:
    mask, and convert into perseus input files.
 2. Run perseus on the input files.
 3. Convert the perseus output into a numpy.ndarray to be fed into persim.
-4. Compute the Persistence Landscape of each time slice.
+4. Using persim to compute the Persistence Landscape of each time slice.
 5. Label and process (pad) the landscapes for the statistical tests.
 6. Apply one of two statistical tests:
    1. The permutation test. Given two modality labels, compute the average PL
