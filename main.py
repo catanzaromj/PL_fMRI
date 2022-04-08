@@ -16,6 +16,9 @@ The main steps are as follows.
     6b. SVM. Given two modality labels, construct a linear SVM for each label
     and validate it using 10-fold cross validation.
 
+The first two steps are omitted because the raw data files are too large. Thus,
+the workflow begins with reading from perseus input files which have been provided
+in 'data/postprocessed'.
 """
 from persim.landscapes import PersLandscapeApprox
 
