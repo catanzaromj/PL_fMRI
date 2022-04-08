@@ -35,3 +35,5 @@ The main workflow of the code is as follows:
   and validate it using 10-fold cross validation.
 
 This process is outlined in `main.py`.
+
+**Note:** The raw data files are large, so the output of the perseus files have been uploaded to `data/postprocessed`, so the workflow can start directly from Step 3.
