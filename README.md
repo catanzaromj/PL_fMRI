@@ -13,7 +13,7 @@ The structure is as follows:
    - `landscapes.py` creates and manipulates landscapes for machine learning algorithms.
    - `permutation_test.py` contains a labelled permutation test.
    - `svm.py` contains an sklearn Linear SVM.
-   - `modality_labels.py` contains the true list of modality labels for the experiment.
+   - `config.py` contains global variables, like the list of modality labels for the experiment.
  - `main.py` contains the main scripts used for running the pipeline.
 
 ## Workflow
