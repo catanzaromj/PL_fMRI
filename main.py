@@ -77,6 +77,14 @@ svm_random_rest_1, score_random_rest_1 = landscape_svm(
     folds=10,
 )
 
+# # Build a classifier using H2
+# svm_random_rest_2, score_random_rest_2 = landscape_svm(
+#     landscapes=pl_list[2],
+#     labels=SVM_TEST_LABELS,
+#     target_labels=target_labels,
+#     folds=10,
+# )
+
 # Build a classifier using both H0 and H1
 svm_random_rest_01, score_random_rest_01 = landscape_svm(
     landscapes=pl_list[0] + pl_list[1],

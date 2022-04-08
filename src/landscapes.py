@@ -80,7 +80,9 @@ def construct_landscapes(subject: str, hom_deg: int, data_dir: str) -> list:
         diagrams = perseus_to_sktda(
             subject=subject, hom_deg=hom_deg, time=time, data_dir=data_dir
         )
-        pl_list.append(PersLandscapeApprox(dgms=diagrams, hom_deg=hom_deg))
+        pl_list.append(
+            PersLandscapeApprox(dgms=diagrams, hom_deg=hom_deg, num_steps=1500)
+        )
     return pl_list
 
 
@@ -113,35 +115,6 @@ def select_from_list(landscapes: list, list_of_labels: list, target_label: str) 
         if modality == target_label:
             pl_list.append(landscapes[idx])
     return pl_list
-
-
-# def select_values(
-#     landscape_values: list, list_of_labels: list, target_label: str
-# ) -> list:
-#     """
-#     Select a sublist of landscape values based on label.
-
-#     Parameters
-#     ----------
-#     landscape_values: list
-#         The list of landscape values to be picked from.
-#     list_of_labels: list
-#         A complete labelling of landscapes.
-#     target_label: str
-#         The desired label type to be selected.
-
-#     Returns
-#     -------
-#     A list of landscapes with label equal to `target_label`.
-#     """
-#     if len(landscapes) != len(list_of_labels):
-#         raise ValueError("landscapes and list_of_labels must be the same length")
-
-#     pl_list = []
-#     for idx, modality in enumerate(list_of_labels):
-#         if modality == target_label:
-#             pl_list.append(landscapes[idx])
-#     return pl_list
 
 
 def pad_flatten_landscape_values(landscapes: list) -> list:
@@ -181,6 +154,4 @@ def pad_flatten_landscape_values(landscapes: list) -> list:
             pl_values[idx] = np.append(
                 value, [np.array([0] * num_steps * (max_depth - np.shape(value)[0]))]
             )
-        # for _ in range(np.shape(value)[0], max_depth):
-        #    pl_values[idx] = np.append(pl_values[idx], [np.array([0] * num_steps)])
     return pl_values
