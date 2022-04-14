@@ -11,7 +11,7 @@ import os
 import gudhi
 
 
-def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool):
+def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool) -> None:
     """
     Apply the mask to the subject and convert to a perseus input file.
 
@@ -70,7 +70,7 @@ def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool):
         prs_file.close()
 
 
-def construct_perseus_input_files(subjects: str, data_dir: str, supra: bool):
+def construct_perseus_input_files(subjects: str, data_dir: str, supra: bool) -> None:
     """
     Load the mask and apply it to each subject.
 
@@ -103,7 +103,9 @@ def construct_perseus_input_files(subjects: str, data_dir: str, supra: bool):
         apply_mask(subject, mask, data_dir, supra)
 
 
-def construct_diagrams_gudhi(subject: str, hom_deg: int, time: int, data_dir: str):
+def construct_diagrams_gudhi(
+    subject: str, hom_deg: int, time: int, data_dir: str
+) -> np.ndarray:
     """
     Construct persistence diagrams directly from gudhi.
 
@@ -134,7 +136,7 @@ def construct_diagrams_gudhi(subject: str, hom_deg: int, time: int, data_dir: st
     return cubical_complex.persistence_intervals_in_dimension(hom_deg)
 
 
-def construct_persistence_files(subject: str, hom_deg: int, data_dir: str):
+def construct_persistence_files(subject: str, hom_deg: int, data_dir: str) -> None:
     """
     Construct persistence diagram output files using gudhi directly.
 
