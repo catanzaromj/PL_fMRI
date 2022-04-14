@@ -75,8 +75,10 @@ def construct_landscapes(subject: str, hom_deg: int, data_dir: str) -> list:
     List of landscapes
 
     """
+    from src import total_time
+
     pl_list = []
-    for time in range(210):
+    for time in range(total_time):
         diagrams = perseus_to_sktda(
             subject=subject, hom_deg=hom_deg, time=time, data_dir=data_dir
         )
@@ -109,7 +111,6 @@ def select_from_list(landscapes: list, list_of_labels: list, target_label: str) 
     """
     if len(landscapes) != len(list_of_labels):
         raise ValueError("landscapes and list_of_labels must be the same length")
-
     pl_list = []
     for idx, modality in enumerate(list_of_labels):
         if modality == target_label:
@@ -149,7 +150,6 @@ def pad_flatten_landscape_values(landscapes: list) -> list:
     for idx, value in enumerate(pl_values):
         if np.shape(value)[0] == max_depth:
             pl_values[idx] = value.flatten()
-            continue
         else:
             pl_values[idx] = np.append(
                 value, [np.array([0] * num_steps * (max_depth - np.shape(value)[0]))]
