@@ -14,7 +14,7 @@ def perseus_to_sktda(
     Parameters
     ----------
     subject : str
-        The subject number to be analyed.
+        The subject number to be analyzed.
     hom_deg : int
         The homological degree.
     time : int
