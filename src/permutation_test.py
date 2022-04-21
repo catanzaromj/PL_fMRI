@@ -5,7 +5,7 @@ from .landscapes import select_from_list
 
 
 def permutation_test(
-    landscapes: list, labels: list[str], num_perms: int = 100, seed: int = 42
+    landscapes: list, labels: list[str], num_perms: int = 1500, seed: int = 42
 ):
     """
     Compute the permutation test of landscapes with labellings.
