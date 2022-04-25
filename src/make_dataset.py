@@ -79,7 +79,7 @@ def construct_perseus_input_files(subjects: str, data_dir: str, supra: bool) -> 
 
     Parameters
     ----------
-    subject : str | list(str)
+    subjects : str | list(str)
         A (list of) subject number(s) to be analyzed.
 
     data_dir : str
@@ -111,7 +111,7 @@ def construct_diagrams_gudhi(
 
     Parameters
     ----------
-    subjects : str
+    subject : str
         A subject number to be analyzed.
 
     hom_deg : int
@@ -179,6 +179,7 @@ def construct_persistence_files(subject: str, hom_deg: int, data_dir: str) -> No
             for (b, d) in pds:
                 pd_file.writelines([str(b), str(d), "\n"])
 
+
 def construct_vector(subject: str, hom_deg: int, data_dir: str) -> list:
     """
     Construct a vector of signal amplitude whose coordinates are ordered by the perseus input file.
@@ -187,7 +188,6 @@ def construct_vector(subject: str, hom_deg: int, data_dir: str) -> list:
     ----------
     subject
     data_dir
-    supra
 
     Returns
     -------
@@ -197,20 +197,20 @@ def construct_vector(subject: str, hom_deg: int, data_dir: str) -> list:
     return_list = []
 
     # Check if file exists. If not, create it.
-    if not os.path.exists(data_dir,"preprocessed", subject, "patient_" + subject + "_time_0.prs"):
-        construct_persistence_files(subject=subject, hom_deg=hom_deg, data_dir=data_dir)
+    # if not os.path.exists(path=os.path.join(data_dir,"preprocessed", subject, "patient_" + subject + "_time_0.prs")):
+    #    construct_persistence_files(subject=subject, hom_deg=hom_deg, data_dir=data_dir)
 
     subject_data_path = os.path.join(
-        data_dir, "preprocessed", subject
+        data_dir, "patient"+subject, "pers_input"
     )
     for time in range(total_time):
         time_list = []
         prs_filename = "patient_" + subject + "_time_" + str(time) + ".prs"
-        with open(os.path.join(data_dir, "preprocessed", subject, prs_filename), "r") as prs_file:
+        with open(os.path.join(subject_data_path,  prs_filename), "r") as prs_file:
             for line in prs_file:
                 if line == '3\n':
                     continue
                 else:
                     time_list.append(int(line.split(' ')[-1]))
         return_list.append(time_list)
-    return np.ndarray(return_list)
+    return return_list

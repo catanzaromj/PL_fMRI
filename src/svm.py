@@ -66,9 +66,17 @@ def landscape_svm(
     score = cross_val_score(svm_clf, pls, labels_AB, scoring=scoring, cv=folds)
     return svm_clf, score
 
-def raw_svm(list_of_vectors: list, labels: list, target_labels: list, seed: int = 0, C: int = 10, loss: str = "squared_hinge",
+
+def raw_svm(
+    list_of_vectors: list,
+    labels: list,
+    target_labels: list,
+    seed: int = 0,
+    C: int = 10,
+    loss: str = "squared_hinge",
     scoring: str = "accuracy",
-    folds: int = 10):
+    folds: int = 10,
+):
     """
 
     Parameters
@@ -100,13 +108,14 @@ def raw_svm(list_of_vectors: list, labels: list, target_labels: list, seed: int 
     vectors_b = select_from_list(list_of_vectors, target_labels, labels[1])
     labels_ab = [labels[0]] * len(vectors_a) + [labels[1]] * len(vectors_b)
 
-
     svm_raw_clf = Pipeline(
         [
             ("Scaler", StandardScaler()),
             ("Linear SVC", LinearSVC(C=C, loss=loss, random_state=seed, dual=False)),
         ]
     )
-    svm_raw_clf.fit(list_of_vectors, labels_ab)
-    raw_score = cross_val_score(svm_raw_clf, vectors_a+vectors_b, labels_ab, scoring=scoring, cv=folds)
-    return svm_raw_clf, raw_score
+    svm_raw_clf.fit(vectors_a + vectors_b, labels_ab)
+    raw_score = cross_val_score(
+        svm_raw_clf, vectors_a + vectors_b, labels_ab, scoring=scoring, cv=folds
+    )
+    return raw_score
