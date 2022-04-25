@@ -29,7 +29,7 @@ The main workflow of the code is as follows:
    1. The permutation test. Given two modality labels, compute the average PL
   of each label and then take the sup norm of their difference.
   Shuffle the labellings, compute new averages and the new sup norm difference.
-  Compare this to the original differnce and determine if the shuffled labelling
+  Compare this to the original difference and determine if the shuffled labelling
   is significant.
    2. SVM. Given two modality labels, construct a linear SVM for each label
   and validate it using 10-fold cross validation.

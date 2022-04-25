@@ -178,3 +178,39 @@ def construct_persistence_files(subject: str, hom_deg: int, data_dir: str) -> No
             )
             for (b, d) in pds:
                 pd_file.writelines([str(b), str(d), "\n"])
+
+def construct_vector(subject: str, hom_deg: int, data_dir: str) -> list[np.ndarray]:
+    """
+    Construct a vector of signal amplitude whose coordinates are ordered by the perseus input file.
+
+    Parameters
+    ----------
+    subject
+    data_dir
+    supra
+
+    Returns
+    -------
+
+    """
+    from src import total_time
+    return_list = []
+
+    # Check if file exists. If not, create it.
+    if not os.path.exists(data_dir,"preprocessed", subject, "patient_" + subject + "_time_0.prs"):
+        construct_persistence_files(subject=subject, hom_deg=hom_deg, data_dir=data_dir)
+
+    subject_data_path = os.path.join(
+        data_dir, "preprocessed", subject
+    )
+    for time in range(total_time):
+        time_list = []
+        prs_filename = "patient_" + subject + "_time_" + str(time) + ".prs"
+        with open(os.path.join(data_dir, "preprocessed", subject, prs_filename), "r") as prs_file:
+            for line in prs_file:
+                if line == '3\n':
+                    continue
+                else:
+                    time_list.append(int(line.split(' ')[-1]))
+        return_list.append(time_list)
+    return np.ndarray(return_list)
