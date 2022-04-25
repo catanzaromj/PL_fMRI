@@ -179,7 +179,7 @@ def construct_persistence_files(subject: str, hom_deg: int, data_dir: str) -> No
             for (b, d) in pds:
                 pd_file.writelines([str(b), str(d), "\n"])
 
-def construct_vector(subject: str, hom_deg: int, data_dir: str) -> list[np.ndarray]:
+def construct_vector(subject: str, hom_deg: int, data_dir: str) -> list:
     """
     Construct a vector of signal amplitude whose coordinates are ordered by the perseus input file.
 

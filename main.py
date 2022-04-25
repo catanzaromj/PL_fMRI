@@ -20,16 +20,14 @@ The first two steps are omitted because the raw data files are too large. Thus,
 the workflow begins with reading from perseus input files which have been provided
 in 'data/postprocessed'.
 """
-from persim.landscapes import PersLandscapeApprox
 
+from src import target_labels
+from src.make_dataset import construct_vector
 from src.landscapes import (
-    pad_flatten_landscape_values,
     construct_landscapes,
-    select_from_list,
 )
 from src.permutation_test import permutation_test
-from src.svm import landscape_svm
-from src import target_labels
+from src.svm import landscape_svm, raw_svm
 
 SUPRA_LEVEL = True  # Compute the supralevel persistent homology as opposed to sub-level
 DATA_DIR = "data/"  # edit this to point to the path of the data directory.
@@ -71,6 +69,15 @@ svm_random_rest_0, score_random_rest_0 = landscape_svm(
     folds=10,
 )
 
+svm_raw_random_rest_0, score_raw_random_rest_0 = raw_svm(
+    list_of_vectors=construct_vector(subject=SUBJECT_LIST[0],
+                                     hom_deg=0,
+                                     data_dir=DATA_DIR),
+    labels=SVM_TEST_LABELS,
+    target_labels=target_labels,
+    folds=10
+)
+
 # Build a classifier using H1
 svm_random_rest_1, score_random_rest_1 = landscape_svm(
     landscapes=pl_list[1],
@@ -79,6 +86,7 @@ svm_random_rest_1, score_random_rest_1 = landscape_svm(
     folds=10,
 )
 
+print(score_raw_random_rest_0)
 # # Build a classifier using H2
 # svm_random_rest_2, score_random_rest_2 = landscape_svm(
 #     landscapes=pl_list[2],
@@ -88,12 +96,12 @@ svm_random_rest_1, score_random_rest_1 = landscape_svm(
 # )
 
 # Build a classifier using both H0 and H1
-svm_random_rest_01, score_random_rest_01 = landscape_svm(
-    landscapes=pl_list[0] + pl_list[1],
-    labels=SVM_TEST_LABELS,
-    target_labels=target_labels * 2,
-    folds=10,
-)
+# svm_random_rest_01, score_random_rest_01 = landscape_svm(
+#     landscapes=pl_list[0] + pl_list[1],
+#     labels=SVM_TEST_LABELS,
+#     target_labels=target_labels * 2,
+#     folds=10,
+# )
 
 # Build a classifier by truncating each of H0 and H1 first
 # truncated_pl0 = [
