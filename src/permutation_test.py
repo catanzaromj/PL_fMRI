@@ -1,6 +1,8 @@
 """Construct the permutation test."""
 import random
+
 from persim.landscapes import average_approx, snap_pl
+
 from .landscapes import select_from_list
 
 

@@ -1,8 +1,8 @@
-import pytest
 import numpy as np
-
+import pytest
 from persim.landscapes import PersLandscapeApprox
-from src.landscapes import select_from_list, pad_flatten_landscape_values
+
+from src.landscapes import pad_flatten_landscape_values, select_from_list
 
 
 class TestLandscapes:

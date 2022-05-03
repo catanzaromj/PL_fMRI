@@ -1,9 +1,11 @@
-from src import target_labels
-from src.make_dataset import construct_vector
-from src.svm import nontda_svm, landscape_svm
 import logging
+
 import pandas as pd
 import seaborn as sns
+
+from src import target_labels
+from src.make_dataset import construct_vector
+from src.svm import nontda_svm
 
 logging.basicConfig(level=logging.INFO)
 
@@ -14,7 +16,6 @@ SUBJECT_LIST = ["0295", "0394", "0408", "0484", "0489", "0505", "0521", "0551"]
 HOMOLOGICAL_DEGREES = [0, 1]
 
 SVM_TEST_LABELS = ["rest", "beat", "random"]
-
 
 # def svm_rest_beat(subject: str, data_dir: str):
 #     """
@@ -126,16 +127,16 @@ def svm_raw_list(subject: str, data_dir: str):
     return return_list
 
 
-def svm_raw_pd_test(subject_list: str = SUBJECT_LIST, data_dir: str = DATA_DIR):
-    avg_accur = pd.DataFrame(
+def svm_raw_pd_test(subject_list: str, data_dir: str):
+    svm_raw_pd = pd.DataFrame(
         columns=["Rest vs Beat", "Random vs Beat", "Rest vs Random", "All Three"]
     )
     for subject in subject_list:
-        avg_accur.loc[subject] = svm_raw_list(subject, data_dir=data_dir)
-    return avg_accur
+        svm_raw_pd.loc[subject] = svm_raw_list(subject, data_dir=data_dir)
+    return svm_raw_pd
 
 
-avg_accur = svm_raw_pd_test(subject_list=SUBJECT_LIST)
+avg_accur = svm_raw_pd_test(subject_list=SUBJECT_LIST, data_dir=DATA_DIR)
 ax = sns.heatmap(avg_accur, annot=True, linewidths=0.5, cmap="YlOrRd_r")
 ax.set_title("Non-TDA SVM classification accuracies as a function of pairing, unscaled")
 ax.set_xticklabels(avg_accur.columns)

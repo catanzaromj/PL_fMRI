@@ -5,10 +5,11 @@ just the ACC. The mask filters these other regions out, leaving the ACC.
 
 """
 
-import numpy as np
-import h5py as h5
 import os
+
 import gudhi
+import h5py as h5
+import numpy as np
 
 
 def apply_mask(subject: str, mask: np.ndarray, data_dir: str, supra: bool) -> None:

@@ -23,10 +23,9 @@ in 'data/postprocessed'.
 
 import pandas as pd
 import seaborn as sns
+
 from src import target_labels as TARGET_LABELS
-from src.landscapes import (
-    construct_landscapes,
-)
+from src.landscapes import construct_landscapes
 from src.svm import landscape_svm
 
 SUPRA_LEVEL = True  # Compute the supralevel persistent homology as opposed to sub-level

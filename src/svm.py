@@ -1,10 +1,9 @@
 """Construct the SVM."""
 from sklearn.model_selection import cross_val_score
-from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from .landscapes import select_from_list, pad_flatten_landscape_values
-from .make_dataset import construct_vector
+from sklearn.svm import LinearSVC
+
+from .landscapes import pad_flatten_landscape_values, select_from_list
 
 
 def landscape_svm(

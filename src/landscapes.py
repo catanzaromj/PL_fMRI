@@ -1,6 +1,7 @@
 """Compute persistence landscapes from perseus files and auxiliary functions."""
 
 import os
+
 import numpy as np
 from persim.landscapes import PersLandscapeApprox, snap_pl
 
