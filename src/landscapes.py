@@ -28,7 +28,8 @@ def perseus_to_sktda(
     A numpy.ndarray of the persistence diagram.
 
     """
-    subject_prs_path = os.path.join(data_dir, "postprocessed", subject)
+    # subject_prs_path = os.path.join(data_dir, "postprocessed", subject)
+    subject_prs_path = os.path.join(data_dir, "patient" + subject, "pers_output")
     subject_pd = []
     subject_prs = os.path.join(
         subject_prs_path,
