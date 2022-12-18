@@ -29,7 +29,7 @@ from src.landscapes import construct_landscapes
 from src.svm import landscape_svm
 
 SUPRA_LEVEL = True  # Compute the supralevel persistent homology as opposed to sub-level
-DATA_DIR = "/run/user/1000/gvfs/smb-share:server=192.168.68.110,share=home/Sam_Vaibhav_project_files/"  # edit this to point to the path of the data directory"  # edit this to point to the path of the data directory.
+DATA_DIR = "/run/user/1000/gvfs/smb-share:server=192.168.68.110,share=home/Sam_Vaibhav_project_files/"  # edit this to point to the path of the data directory
 SUBJECT_LIST = ["0295", "0394", "0408", "0484", "0489", "0505", "0521", "0551"]
 HOMOLOGICAL_DEGREES = [0, 1]
 
@@ -51,7 +51,7 @@ SVM_TEST_LABELS = ["rest", "beat"]
 
 
 avg_accur = pd.DataFrame(
-    columns=["Rest vs Beat", "Random vs Beat", "Rest vs Random", "All Three"]
+    columns = ["Rest vs Beat", "Random vs Beat", "Rest vs Random", "All Three"]
 )
 
 for subject in SUBJECT_LIST:
@@ -62,30 +62,30 @@ for subject in SUBJECT_LIST:
     svm_vals = []
     svm_vals.append(
         landscape_svm(
-            landscapes=pl_list[0] + pl_list[1],
-            labels=["rest", "beat"],
-            target_labels=TARGET_LABELS * 2,
+            landscapes = pl_list[0] + pl_list[1],
+            labels = ["rest", "beat"],
+            target_labels = TARGET_LABELS * 2,
         ).mean()
     )
     svm_vals.append(
         landscape_svm(
-            landscapes=pl_list[0] + pl_list[1],
-            labels=["random", "beat"],
-            target_labels=TARGET_LABELS * 2,
+            landscapes = pl_list[0] + pl_list[1],
+            labels = ["random", "beat"],
+            target_labels = TARGET_LABELS * 2,
         ).mean()
     )
     svm_vals.append(
         landscape_svm(
-            landscapes=pl_list[0] + pl_list[1],
-            labels=["rest", "random"],
-            target_labels=TARGET_LABELS * 2,
+            landscapes = pl_list[0] + pl_list[1],
+            labels = ["rest", "random"],
+            target_labels = TARGET_LABELS * 2,
         ).mean()
     )
     svm_vals.append(
         landscape_svm(
-            landscapes=pl_list[0] + pl_list[1],
-            labels=["rest", "beat", "random"],
-            target_labels=TARGET_LABELS * 2,
+            landscapes = pl_list[0] + pl_list[1],
+            labels = ["rest", "beat", "random"],
+            target_labels = TARGET_LABELS * 2,
         ).mean()
     )
     avg_accur.loc[subject] = svm_vals
